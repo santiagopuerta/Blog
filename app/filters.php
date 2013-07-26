@@ -11,15 +11,47 @@
 |
 */
 
-App::before(function($request)
-{
-	//
+// Se ejecuta antes de cada petición.
+App::before(function($request) {
+	// Cambia el numero, evita session_hijacking
+  Session::regenerate();
+  
+  // Guardamos en la sesion un numero aleatorio, encriptado, para despues, comprobar
+  // el numero, con el que tengo guardado. 
+  // Save & change the XSRF token
+  $oldToken = Session::get('xsrf', '');
+  $newToken = Str::random(32);
+  Session::put('xsrf', $newToken);
+ 
+  // We can't use Cookie::put because it sets HttpOnly cookies only
+  setcookie('XSRF-TOKEN', Crypt::encrypt($newToken), 0, '/');
+ 
+  if (Request::getMethod() !== 'GET' && !App::environment() === 'local') {
+    // Check the cookie, the header, and the code to see if everything is
+    // looking correct in the request
+    $cookie = isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '';
+    $header = Request::header('x-xsrf-token');
+    $header = ($header === null) ? '' : $header[0];
+    if ($cookie != $header) {
+      throw new Illuminate\Session\TokenMismatchException;
+    }
+    if (strlen($cookie) == 0) {
+      throw new Illuminate\Session\TokenMismatchException;
+    }
+ 
+    $value = Crypt::decrypt($cookie);
+    if ($value != $oldToken) {
+      throw new Illuminate\Session\TokenMismatchException;
+    }
+  }
 });
-
-
-App::after(function($request, $response)
-{
-	//
+ 
+// Se ejecuta despues de cada peticion respuesta, justo antes de enviar la respuesta al cliente
+App::after(function($request, $response) {
+  if ($response instanceof Response) {
+  	// para que los de IE usen Chromeframe si lo tienen instalado.
+    $response->header('X-UA-Compatible', 'chrome=1');
+  }
 });
 
 /*
@@ -35,15 +67,17 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (Auth::guest()) {
+    return Redirect::to('accounts/login');
+  }
 });
 
-
+/*
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();
 });
-
+*/
 /*
 |--------------------------------------------------------------------------
 | Guest Filter
@@ -54,12 +88,12 @@ Route::filter('auth.basic', function()
 | response will be issued if they are, which you may freely change.
 |
 */
-
+/*
 Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
-
+*/
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter
@@ -70,7 +104,7 @@ Route::filter('guest', function()
 | session does not match the one given in this request, we'll bail.
 |
 */
-
+/*
 Route::filter('csrf', function()
 {
 	if (Session::token() != Input::get('_token'))
@@ -78,3 +112,4 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+*/
