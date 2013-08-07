@@ -1,0 +1,43 @@
+
+
+// Make scrollbar appear always and put a background in the page.
+html, body {
+  height: 100%;
+}
+
+// Selection colors
+::-moz-selection {
+    background: #fe57a1;
+    text-shadow: none;
+}
+
+::selection {
+    background: #fe57a1;
+    text-shadow: none;
+}
+
+
+// Wrapping container. Put a bgcolor and make room for it.
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 80px auto -85px;
+  padding-bottom: 120px;
+  border-radius: 8px;
+}
+
+
+// Tables or lists with no elems.
+.no-elems {
+  color: white;
+  font-style: italic;
+  text-align: center !important;
+}
+
+
+// Layout a block with inline semantics
+.inline-block {
+  display: inline-block;
+}
+

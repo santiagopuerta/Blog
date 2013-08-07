@@ -1,0 +1,64 @@
+clientonly: true
+base: ../app/views/base.blade.php
+deploy: php
+ 
+recess:
+  - source: bootstrap/main.less
+    dest:   bootstrap.css
+ 
+sass:
+  - source: app.scss
+    dest:   app.css
+ 
+watch:
+  - task: recess
+    paths:
+      - app/components/bootstrap/less/*.less
+      - app/styles/bootstrap/*.less
+      - app/styles/font-awesome/*.less
+ 
+  - task: sass
+    paths:
+      - app/styles/**/*.scss
+ 
+cacherev:
+  dirs:
+    - images
+    - styles
+    - scripts
+    - fonts
+    - components
+  rev:
+    - styles
+    - views
+    - base.blade.php
+    - laravel-templates
+ 
+htmlmin:
+  - source: app/views
+    dest: temp/views
+ 
+prepare_dist:
+  - app
+  - ../app/views/base.blade.php
+  - ../app/views -> laravel-templates
+ 
+dist:
+  - components/jquery/jquery.min.js
+  - favicon.ico
+  - fonts
+  - images
+  - robots.txt
+  - scripts/ie.js
+  - scripts/test.js
+  - scripts/blog.js
+  - styles/blog.css
+ 
+ngtemplates:
+  appendto: scripts/blog.js
+  files:
+    - views/**
+ 
+serve:
+  base: proxy
+  url: http://blog.localhost/

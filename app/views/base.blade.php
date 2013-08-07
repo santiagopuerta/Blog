@@ -12,7 +12,7 @@
 
   <title>@yield('title')</title>
 
-  <!-- concat:css /styles/mailing.css -->
+  <!-- concat:css /styles/blog.css -->
     <link rel="stylesheet" href="/styles/bootstrap.css">
     <link rel="stylesheet" href="/styles/app.css">
   <!-- endconcat -->
@@ -78,7 +78,7 @@
       '<\/script>');
   </script>
 
-  <!-- concat:js /scripts/mailing.js -->
+  <!-- concat:js /scripts/blog.js -->
     <!-- min --><script src="/components/bower-angular/angular.js"></script>
     <!-- min --><script src="/components/bower-angular/angular-sanitize.js"></script>
 
