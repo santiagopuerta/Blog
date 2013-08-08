@@ -9,9 +9,19 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		// ORM toma la tabla y la convierte a objeto.
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('UserTableSeeder');
+	}
+
+}
+
+
+class UserTableSeeder extends Seeder {
+
+	public function run(){
+		User::create(array());
 	}
 
 }
