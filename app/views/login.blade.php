@@ -11,8 +11,8 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Iniciar sesión.</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
+        <input type="text" class="input-block-level" placeholder="Dirección de email" >
+        <input type="password" class="input-block-level" placeholder="Contraseña">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Recordarme
         </label>
