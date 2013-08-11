@@ -1,0 +1,13 @@
+
+<div ng-controller="LoginCtrl">
+  <form novalidate autocomplete=off class="form-signin">
+
+    <h2 class="form-signin-heading">Iniciar sesión.</h2>
+    <input type="email" class="input-block-level" placeholder="Dirección de email" 
+        ng-model="data.email" name="email" required>
+    <input type="password" class="input-block-level" placeholder="Contraseña" 
+        name="password" ng-model="data.password" ng-minlength="8" required>
+    <button class="btn btn-large btn-primary">Entrar</button>
+
+  </form>
+</div>
