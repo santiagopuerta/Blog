@@ -91,6 +91,7 @@
 
     <!-- compile /scripts/scripts.js -->
       <script src="/scripts/app.js"></script>
+      <script src="/scripts/controllers/accounts.js"></script>
       <script src="/scripts/controllers/global.js"></script>
       <script src="/scripts/controllers/home.js"></script>
       <script src="/scripts/directives/match.js"></script>

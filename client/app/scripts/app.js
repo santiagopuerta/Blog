@@ -2,6 +2,7 @@
 
 
 var m = angular.module('app', [
+  'controllers.accounts',
   'controllers.global',
   'controllers.home',
   'directives.match',

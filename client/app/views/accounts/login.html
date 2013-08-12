@@ -1,13 +1,38 @@
 
 <div ng-controller="LoginCtrl">
-  <form novalidate autocomplete=off class="form-signin">
+  <form novalidate autocomplete="off" class="form-signin" name="f"
+      ng-submit="f.$valid && submit()" ng-init="f.val = false">
 
     <h2 class="form-signin-heading">Iniciar sesión.</h2>
-    <input type="email" class="input-block-level" placeholder="Dirección de email" 
-        ng-model="data.email" name="email" required>
-    <input type="password" class="input-block-level" placeholder="Contraseña" 
-        name="password" ng-model="data.password" ng-minlength="8" required>
-    <button class="btn btn-large btn-primary">Entrar</button>
+
+    <div class="alert alert-error" style="display: none;"
+      ng-show="f.$valid && loginInvalido">El email o la contraseña no son válidos</div>
+
+    <div class="control-group" ng-class="{error: f.val && f.email.$invalid}">
+      <input type="email" 
+          class="input-block-level" placeholder="Dirección de email" 
+          ng-model="data.email" name="email" required>
+      <p class="help-block error" ng-show="f.val && f.email.$invalid">
+        <span ng-show="f.email.$error.required">El email es obligatorio</span>
+        <span ng-show="f.email.$error.email">El email debe tener un formato válido</span>
+      </p>
+    </div>
+
+    <div class="control-group" ng-class="{error: f.val && f.password.$invalid}">
+      <input type="password" class="input-block-level" placeholder="Contraseña"
+          name="password" ng-model="data.password" ng-minlength="8" required>
+      <p class="help-block error" ng-show="f.val && f.password.$invalid">
+        <span ng-show="f.password.$error.required">La contraseña es obligatoria</span>
+        <span ng-show="f.password.$error.minlength">La contraseña debe ser más larga</span>
+      </p>
+    </div>
+
+    <button class="btn btn-large btn-primary"
+        ng-click="f.val = true" 
+        ng-sisabled="f.val && !f.$valid">
+      <i class="icon-signin"></i>&nbsp;
+      Entrar
+    </button>
 
   </form>
 </div>

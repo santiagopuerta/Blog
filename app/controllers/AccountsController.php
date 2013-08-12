@@ -7,5 +7,4 @@ class AccountsController extends BaseController {
     return $this->buildBase()->nest('view', 'login');
   }
 
-  
 }

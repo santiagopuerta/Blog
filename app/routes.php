@@ -10,5 +10,5 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('','HomeController@index');
+Route::get('/','HomeController@index');
 Route::get('accounts/login','AccountsController@login');
